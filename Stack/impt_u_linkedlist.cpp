@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 const int MAX = 50;
 struct node
 {
@@ -32,7 +31,8 @@ public:
     void deleteAt(int);
     int count();
 
-    ~List(){
+    ~List()
+    {
         delete head;
     }
 };
@@ -62,7 +62,7 @@ void List ::addAtbeg(int x)
 }
 void List::addAt(int data, int pos)
 { // assuming 'pos' is 1 indexed.
-//and also assuming that 'pos' is a valid input
+    // and also assuming that 'pos' is a valid input
     if (pos == 1)
     {
         addAtbeg(data);
@@ -76,7 +76,7 @@ void List::addAt(int data, int pos)
         int count = 1;
         node *it = head;
         node *temp = new node(data);
-        while (it->next != nullptr and count < pos-1)
+        while (it->next != nullptr and count < pos - 1)
         {
             it = it->next;
             count++;
@@ -119,77 +119,138 @@ void List::display()
         cout << endl;
     }
 }
-void List:: deleteAt(int pos){//again assuming that pos is 1 indexed and is valid 
-    if(pos==1){
-        node*todelete=head;
-        head=head->next;
+void List::deleteAt(int pos)
+{ // again assuming that pos is 1 indexed and is valid
+    if (pos == 1)
+    {
+        node *todelete = head;
+        head = head->next;
         delete todelete;
     }
-    else if(pos==count()){
-        node*it=head;
-        node*prev=nullptr;
-        while(it->next!=nullptr){
-            prev=it;
-            it=it->next;
+    else if (pos == count())
+    {
+        node *it = head;
+        node *prev = nullptr;
+        while (it->next != nullptr)
+        {
+            prev = it;
+            it = it->next;
         }
-        prev->next=nullptr;
+        prev->next = nullptr;
         delete it;
     }
-    else {
-        int count=1;
-        node*it=head;
-        while(it!=nullptr and count<pos-1){
-            it=it->next;
+    else
+    {
+        int count = 1;
+        node *it = head;
+        while (it != nullptr and count < pos - 1)
+        {
+            it = it->next;
             count++;
         }
-        node*nxt=it->next;
-        it->next=nxt->next;
+        node *nxt = it->next;
+        it->next = nxt->next;
         delete nxt;
     }
 }
+
+class Stack
+{
+    node *head;
+
+public:
+    Stack()
+    {
+        head = nullptr;
+    }
+    void push(int);
+    int pop();
+    void display();
+};
+void Stack::push(int data)
+{
+    node *temp = new node(data);
+    if (head == nullptr)
+    {
+        head = temp;
+    }
+    else
+    {
+        node *it = head;
+        while (it->next != nullptr)
+        {
+            it = it->next;
+        }
+        it->next = temp;
+    }
+}
+int Stack::pop()
+{
+    if (head == nullptr)
+    {
+        cout << "Stack underflow\n";
+        return -1;
+    }
+    else
+    {
+        int dat;
+        node *it = head;
+        node *prev = nullptr;
+        while (it->next != nullptr)
+        {
+            prev = it;
+            it = it->next;
+        }
+        prev->next = nullptr;
+        dat = it->data;
+        delete it;
+        return dat;
+    }
+}
+void Stack ::display()
+{
+    if (head == nullptr)
+    {
+        cout << "Stack is empty\n";
+        return;
+    }
+    node *it = head;
+    while (it != nullptr)
+    {
+        cout << (it->data) << "\t";
+        it = it->next;
+    }
+    cout << endl;
+}
 int main()
 {
+    Stack s;
     int choise;
-    List l;
-
     do
     {
         cout << "Choose option :\n";
-        cout << "1-Append to list \n2-Add at a position\n3-Display all the items\n4-Add at the beg.";
-        cout << endl;
+        cout << "1-Push Element \n2-Pop Element\n3-Display all the element\n";
         cin >> choise;
+        int x;
         switch (choise)
         {
-        case 1:
-        {
-            int x;
-            cout << "Enter data to append\n";
+        case 1:{
+            cout << "Enter number to push \n";
             cin >> x;
-            l.append(x);
+            s.push(x);
         }
-        break;
-        case 2:
-        {
-            int p, d;
-            cout << "Enter position to add the element\n";
-            cin >> p;
-            cout << "Enter data to add the element\n";
-            cin >> d;
-            l.addAt(d, p);
-        }
-        break;
-        case 3:
-            l.display();
             break;
-        case 4:
-            int z;
-            cout << "Enter data to add at the beg.\n";
-            cin >> z;
-            l.addAtbeg(z);
+        case 2:
+            cout << s.pop();
+            break;
+        case 3:{
+            cout << "Stack elements:\n";
+            s.display();
+        }
             break;
         default:
-            cout << "Exiting...\n";
+            cout << "Exiting now...\n";
         }
-    } while (choise >= 1 && choise <= 4);
+    } while (choise >= 1 && choise <= 3);
     return 0;
 }
