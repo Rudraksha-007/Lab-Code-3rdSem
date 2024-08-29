@@ -176,7 +176,6 @@ void Stack::push(int data)
     }
     else
     {
-        
         node *it = head;
         while (it->next != nullptr)
         {
