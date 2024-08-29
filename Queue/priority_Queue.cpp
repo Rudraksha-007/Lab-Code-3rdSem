@@ -45,7 +45,6 @@ bool Queue::isfull(){
     return r==MAX-1;
 }
 void Queue::enqueue(item x){
-    
     if(isfull()){
         cout<<"Queue is full.\n";
     }
