@@ -176,12 +176,8 @@ void Stack::push(int data)
     }
     else
     {
-        node *it = head;
-        while (it->next != nullptr)
-        {
-            it = it->next;
-        }
-        it->next = temp;
+        temp->next=head;
+        head=temp;
     }
 }
 int Stack::pop()
@@ -195,7 +191,7 @@ int Stack::pop()
     {
         int dat;
         node *it = head;
-        node *prev = nullptr;
+        node *prev = head;
         while (it->next != nullptr)
         {
             prev = it;
