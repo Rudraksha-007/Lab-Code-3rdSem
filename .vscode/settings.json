@@ -59,6 +59,7 @@
   "files.associations": {
     ".fantomasignore": "ignore",
     "iostream": "cpp",
-    "array": "cpp"
+    "array": "cpp",
+    "new": "cpp"
   }
 }
